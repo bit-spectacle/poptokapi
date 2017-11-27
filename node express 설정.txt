@@ -1,0 +1,21 @@
+cmd 창 오픈
+
+
+## 참고 URL
+## http://bcho.tistory.com/887?category=513811
+
+cd D:\Workplace\Poptok\
+npm install -g express-generator
+npm install -g express
+express --session --ejs --css stylus PoptokApi
+cd PoptokApi
+
+npm install
+# 또는 일일이 설치
+npm install express
+npm install serve-favicon
+....
+
+
+# 서버 실행
+npm start
