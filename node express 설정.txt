@@ -1,7 +1,6 @@
-cmd Ã¢ ¿ÀÇÂ
+cmd ì°½ ì˜¤í”ˆ
 
-
-## Âü°í URL
+## ì°¸ê³  URL
 ## http://bcho.tistory.com/887?category=513811
 
 cd D:\Workplace\Poptok\
@@ -11,11 +10,15 @@ express --session --ejs --css stylus PoptokApi
 cd PoptokApi
 
 npm install
-# ¶Ç´Â ÀÏÀÏÀÌ ¼³Ä¡
+# ë˜ëŠ” ì¼ì¼ì´ ì„¤ì¹˜
 npm install express
 npm install serve-favicon
 ....
 
 
-# ¼­¹ö ½ÇÇà
+# ì„œë²„ ì‹¤í–‰
 npm start
+
+# git ë¦¬íŒŒì§€í„°ë¦¬ ì—°ê²°
+D:\Workplace\Poptok\PoptokApi>
+git remote add origin https://github.com/bit-spectacle/poptokapi.git
