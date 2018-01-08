@@ -12,16 +12,15 @@ router.get('/:lastNo', function (req, res, next) {
     }
 
     postingService.PostingListGet(lastNo, function (posting) {
-        console.log(posting);
         for(var i=0; i<posting.length; i++) {
             if(posting[i].image == '') {
-                posting[i].image = config.imageServerUrl + '/1.jpg'; 
+                posting[i].image = config.imageServerUrl + '/sky.jpg'; 
             }
             else {
                 posting[i].image = config.imageServerUrl + posting[i].image; 
             }
-            
         }
+
         res.setHeader("Content-Type", "application/json");
         res.send(JSON.stringify(posting));
     });
