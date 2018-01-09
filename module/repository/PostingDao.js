@@ -13,7 +13,22 @@ var postingDao = {
         limit 100";
         var parameter = [lastNo];
         db.Select(sql, parameter, callback);
+    },
+    CountLocationPosting: function(latitude, longitude, callback){
+        var sql = "\
+        select count(*) from posting where latitude=? and longitude=?";
+        var parameter = [latitude, longitude];
+        db.Select(sql, parameter, callback);
+    },
+    DeletePosting: function(postNo, callback){
+        var sql = "\
+        delete * from posting where postNo = ?";
+        var parameter = [postNo];
+        db.Delete(sql,parameter, callback);
+
+
     }
+
 }
 
 module.exports = postingDao;
