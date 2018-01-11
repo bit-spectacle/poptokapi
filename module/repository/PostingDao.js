@@ -14,6 +14,12 @@ var postingDao = {
         var parameter = [lastNo];
         db.Select(sql, parameter, callback);
     },
+    PostingMapGet: function (topLat, topLong, botLat, botLong, zoomLevel, userNo, callback) {
+        var sql = "call P_PostMap(?, ?, ?, ?, ?, ?)";
+        var parameter = [topLat, topLong, botLat, botLong, zoomLevel, userNo];
+        db.Select(sql, parameter, callback)
+
+    },
     CountLocationPosting: function(latitude, longitude, callback){
         var sql = "\
         select count(*) from posting where latitude=? and longitude=?";
@@ -25,8 +31,6 @@ var postingDao = {
         delete * from posting where postNo = ?";
         var parameter = [postNo];
         db.Delete(sql,parameter, callback);
-
-
     }
 
 }
