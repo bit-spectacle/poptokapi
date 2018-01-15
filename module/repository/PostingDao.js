@@ -31,12 +31,7 @@ var postingDao = {
         delete * from posting where postNo = ?";
         var parameter = [postNo];
         db.Delete(sql,parameter, callback);
-<<<<<<< HEAD
-       }
-=======
     }
-
->>>>>>> 9af656dea6233f58628654696c5ab6d98199b330
 }
 
 module.exports = postingDao;

@@ -44,10 +44,7 @@ router.get('/map/:topLat/:topLong/:botLat/:botLong/:zoomLevel/:userNo', function
 
     postingService.PostingMapGet(topLat, topLong, botLat, botLong, zoomLevel, userNo, function(posting) {
         for(var i=0; i<posting.length; i++) {
-            if(posting[i].image == '') {
-                posting[i].image = config.imageServerUrl + '/sky.jpg'; 
-            }
-            else {
+            if(posting[i].image != '') {
                 posting[i].image = config.imageServerUrl + posting[i].image; 
             }
         }
