@@ -8,6 +8,12 @@ UserService = {
                 callback(rows[0]);
             }
         });
+    },
+    Login: function(email, password, callback){
+        userDao.Login(email, password, function(err, rows){
+            if(err) {throw err;}
+            if(rows){ callback(rows[0])};
+        });
     }
 }
 
