@@ -8,13 +8,13 @@ var userDao = {
         var parameter = [email];
         db.Select(sql, parameter, callback);
     },
-    Login: function(email, password, callback){
+    Login: function(email, callback){
         var sql = "\
-        select * from user where email = ? \
-        and password = ?";
-        var parameter = [email, password];
+        select * from user where email = ? ";
+        var parameter = [email];
         db.Select(sql, parameter,callback);
     }
+
     
 }
 

@@ -5,10 +5,12 @@ var logger = require('morgan');
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
 var stylus = require('stylus');
+var session = require('express-session');
 
 var index = require('./routes/index');
 var map = require('./routes/map');
 var users = require('./routes/users');
+var auth = require('./routes/auth');
 var posting = require('./routes/posting');
 
 var app = express();
@@ -16,6 +18,12 @@ var app = express();
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'ejs');
+
+app.use(session({
+  secret:'key',
+  resave: false,
+  saveUninitialized: true
+}))
 
 // uncomment after placing your favicon in /public
 //app.use(favicon(path.join(__dirname, 'public', 'favicon.ico')));
@@ -29,7 +37,10 @@ app.use(express.static(path.join(__dirname, 'public')));
 app.use('/', index);
 app.use('/map', map);
 app.use('/users', users);
+app.use('/auth', auth);
 app.use('/posting', posting);
+
+
 
 
 // catch 404 and forward to error handler
@@ -49,5 +60,10 @@ app.use(function(err, req, res, next) {
   res.status(err.status || 500);
   res.render('error');
 });
+
+
+
+
+// app.get('/users/auth/:email/:password')
 
 module.exports = app;

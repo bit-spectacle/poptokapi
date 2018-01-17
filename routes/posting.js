@@ -21,6 +21,8 @@ router.get('/list/:lastNo', function (req, res, next) {
             }
         }
 
+        //console.log("user_uid: " + req.sesssion["user_uid"]);
+
         res.setHeader("Content-Type", "application/json");
         res.send(JSON.stringify(posting));
     });
