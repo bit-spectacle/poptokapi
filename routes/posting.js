@@ -1,7 +1,9 @@
 var express = require('express');
 var router = express.Router();
+var dateutils = require('date-utils');
 var postingService = require('../module/service/PostingService');
 var config = require('../config/config');
+
 
 /* GET users listing. */
 router.get('/list/:lastNo', function (req, res, next) {
@@ -19,6 +21,7 @@ router.get('/list/:lastNo', function (req, res, next) {
             else {
                 posting[i].image = config.imageServerUrl + posting[i].image; 
             }
+            posting[i].postDate = new Date(posting[i].postDate).toFormat('YYYY-MM-DD HH24:MI:SS');
         }
 
         res.setHeader("Content-Type", "application/json");
@@ -47,11 +50,38 @@ router.get('/map/:topLat/:topLong/:botLat/:botLong/:zoomLevel/:userNo', function
             if(posting[i].image != '') {
                 posting[i].image = config.imageServerUrl + posting[i].image; 
             }
+            posting[i].postDate = new Date(posting[i].postDate).toFormat('YYYY-MM-DD HH24:MI:SS');
         }
         res.setHeader("Content-Type", "application/json");
         res.send(JSON.stringify(posting));
     });
     
+});
+
+router.get('/get/:postNo?', function (req, res, next) {
+
+    var postNo = req.params.postNo;
+    if(!postNo || postNo < 1) {
+        res.setHeader("Content-Type", "application/json");
+        res.send("");
+        return;
+    }
+
+    postingService.PostingGet(postNo, function (posting) {
+        
+        if(posting.image == '') {
+            posting.image = config.imageServerUrl + '/sky.jpg'; 
+        }
+        else {
+            posting.image = config.imageServerUrl + posting.image; 
+        }
+
+        posting.postDate = new Date(posting.postDate).toFormat('YYYY-MM-DD HH24:MI:SS');
+
+        res.setHeader("Content-Type", "application/json");
+        res.send(JSON.stringify(posting));
+    });
+  
 });
 
 module.exports = router;

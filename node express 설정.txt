@@ -15,6 +15,9 @@ npm install express
 npm install serve-favicon
 ....
 
+## date 포맷 유틸 설치
+npm install date-utils
+
 
 # 서버 실행
 npm start

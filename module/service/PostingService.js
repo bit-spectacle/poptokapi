@@ -18,6 +18,16 @@ postingService = {
                 }
             }
         });
+    },
+    PostingGet: function (postNo, callback) {
+        postingDao.PostingGet(postNo, function (err, rows) {
+            if(err) { throw err;}
+            if(rows) {
+                if(rows.length > 0) {
+                    callback(rows[0]);
+                }
+            }
+        });
     }
 }
 
