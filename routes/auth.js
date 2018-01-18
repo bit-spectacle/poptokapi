@@ -25,6 +25,9 @@ router.get('/login/:email?/:password?', function(req, res, next) {
                         message: '로그인 성공',
                         user_uid : req.session.user_uid
                     };
+                    userService.ChangeLastLogin(user.userNo,function(user){
+                        console.log(user.lastlogin);
+                    });
                 }
                 res.setHeader("Content-Type", "application/json");
                 res.send(JSON.stringify(result));
@@ -39,8 +42,18 @@ router.get('/login/:email?/:password?', function(req, res, next) {
         res.setHeader("Content-Type", "application/json");
         res.send(JSON.stringify(result));
       }
-
-
 });
+
+//Join
+router.get('/join/:email/:password/:nickname', function(req, res, next){
+    var email = req.params.email;
+    var password = req.params.password;
+    var nickname = req.params.nickname;
+
+    userService.Join(email, password,nickname, function(){
+        console.log(email);
+        console.log(nickname);
+    });
+})
 
 module.exports = router;
