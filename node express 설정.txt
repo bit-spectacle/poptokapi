@@ -18,6 +18,9 @@ npm install serve-favicon
 ## date 포맷 유틸 설치
 npm install date-utils
 
+## body parser 설치
+npm install body-parser
+
 
 # 서버 실행
 npm start

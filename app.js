@@ -10,6 +10,7 @@ var index = require('./routes/index');
 var map = require('./routes/map');
 var users = require('./routes/users');
 var posting = require('./routes/posting');
+var report = require('./routes/report');
 
 var app = express();
 
@@ -21,7 +22,7 @@ app.set('view engine', 'ejs');
 //app.use(favicon(path.join(__dirname, 'public', 'favicon.ico')));
 app.use(logger('dev'));
 app.use(bodyParser.json());
-app.use(bodyParser.urlencoded({ extended: false }));
+app.use(bodyParser.urlencoded({ extended: true }));
 app.use(cookieParser());
 app.use(stylus.middleware(path.join(__dirname, 'public')));
 app.use(express.static(path.join(__dirname, 'public')));
@@ -30,6 +31,7 @@ app.use('/', index);
 app.use('/map', map);
 app.use('/users', users);
 app.use('/posting', posting);
+app.use('/report', report);
 
 
 // catch 404 and forward to error handler
