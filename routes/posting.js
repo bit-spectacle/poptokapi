@@ -24,6 +24,8 @@ router.get('/list/:lastNo', function (req, res, next) {
             posting[i].postDate = new Date(posting[i].postDate).toFormat('YYYY-MM-DD HH24:MI:SS');
         }
 
+        //console.log("user_uid: " + req.sesssion["user_uid"]);
+
         res.setHeader("Content-Type", "application/json");
         res.send(JSON.stringify(posting));
     });
