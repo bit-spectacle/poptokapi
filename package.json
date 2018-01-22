@@ -6,17 +6,14 @@
     "start": "node ./bin/www"
   },
   "dependencies": {
-<<<<<<< HEAD
     "body-parser": "^1.18.2",
     "cookie-parser": "~1.4.3",
     "date-utils": "^1.2.21",
-=======
     "body-parser": "~1.18.2",
     "connect-flash": "^0.1.1",
     "connect-redis": "^3.3.3",
     "cookie-parser": "~1.4.3",
     "cookies": "^0.7.1",
->>>>>>> 15368e5c114aac012b03f91a1a1e210ae1eec724
     "debug": "~2.6.9",
     "ejs": "~2.5.7",
     "express": "^4.15.5",

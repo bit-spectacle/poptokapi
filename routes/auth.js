@@ -15,7 +15,7 @@ router.get('/login/:email?/:password?', function(req, res, next) {
                 var result = {
                     code: 'FAIL',
                     message: '로그인 실패',
-                    sessionId : req.sessionID,
+                    // sessionId : req.sessionID,
                     data : null,
                 };
                 if(password == user.password)
@@ -24,7 +24,7 @@ router.get('/login/:email?/:password?', function(req, res, next) {
                     result = {
                         code: 'SUCC',
                         message: '로그인 성공',
-                        sessionId : req.sessionID,
+                        // sessionId : req.sessionID,
                         data : user
                     };
                     userService.ChangeLastLogin(user.userNo,function(user){
