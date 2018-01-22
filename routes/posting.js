@@ -13,6 +13,29 @@ router.get('/list/:lastNo', function (req, res, next) {
         lastNo = 0;
     }
 
+    
+    // if(req.session.user != null){
+    //     //console.log("userNo : " + user.userNo);
+    //     console.log("**********posting : user.userNo - " + req.session.user.userNo);
+    //     postingService.PostingListGet(lastNo, function (posting) {
+    //         for(var i=0; i<posting.length; i++) {
+    //             if(posting[i].image == '') {
+    //                 posting[i].image = config.imageServerUrl + '/sky.jpg'; 
+    //             }
+    //             else {
+    //                 posting[i].image = config.imageServerUrl + posting[i].image; 
+    //             }
+    //             posting[i].postDate = new Date(posting[i].postDate).toFormat('YYYY-MM-DD HH24:MI:SS');
+    //         }
+    
+    //         res.setHeader("Content-Type", "application/json");
+    //         res.send(JSON.stringify(posting));
+    //     });
+    // }
+    // else{
+    //     res.send('You have to Login First');
+    // }
+
     postingService.PostingListGet(lastNo, function (posting) {
         for(var i=0; i<posting.length; i++) {
             if(posting[i].image == '') {
@@ -24,11 +47,11 @@ router.get('/list/:lastNo', function (req, res, next) {
             posting[i].postDate = new Date(posting[i].postDate).toFormat('YYYY-MM-DD HH24:MI:SS');
         }
 
-        //console.log("user_uid: " + req.sesssion["user_uid"]);
-
         res.setHeader("Content-Type", "application/json");
         res.send(JSON.stringify(posting));
     });
+
+    
   
 });
 

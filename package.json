@@ -6,7 +6,8 @@
     "start": "node ./bin/www"
   },
   "dependencies": {
-    "body-parser": "^1.18.2",
+    "body-parser": "~1.18.2",
+    "connect-flash": "^0.1.1",
     "connect-redis": "^3.3.3",
     "cookie-parser": "~1.4.3",
     "cookies": "^0.7.1",
@@ -17,12 +18,16 @@
     "express-mysql-session": "^1.2.3",
     "express-session": "^1.15.6",
     "jquery-validation": "^1.17.0",
+    "memorystore": "^1.6.0",
     "morgan": "~1.9.0",
     "mysql": "2.15.0",
     "passport": "^0.4.0",
     "passport-local": "^1.0.0",
     "serve-favicon": "^2.4.5",
     "session": "^0.1.0",
+    "session-file-store": "^1.2.0",
+    "session-memory-store": "^0.2.2",
+    "store": "^2.0.12",
     "stylus": "0.54.5"
   }
 }
