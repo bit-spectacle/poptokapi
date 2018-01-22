@@ -20,6 +20,16 @@ var postingDao = {
         db.Select(sql, parameter, callback)
 
     },
+    PostingGet: function (postNo, callback) {
+        var sql = " \
+        select postNo, a.userNo, b.profileImage, b.nickname, viewsCnt, likeCnt, commentCnt, content, image, kakaoLink, postDate, tag, latitude, longitude, poststatus \
+        from post a \
+            inner join user b on a.userNo = b.userNo \
+        where postNo= ? \
+        ";
+        var parameter = [postNo];
+        db.Select(sql, parameter, callback);
+    },
     CountLocationPosting: function(latitude, longitude, callback){
         var sql = "\
         select count(*) from posting where latitude=? and longitude=?";

@@ -17,6 +17,7 @@ var map = require('./routes/map');
 var users = require('./routes/users');
 var auth = require('./routes/auth');
 var posting = require('./routes/posting');
+var report = require('./routes/report');
 
 var app = express();
 
@@ -44,7 +45,7 @@ app.use(session({
 //app.use(favicon(path.join(__dirname, 'public', 'favicon.ico')));
 app.use(logger('dev'));
 app.use(bodyParser.json());
-app.use(bodyParser.urlencoded({ extended: false }));
+app.use(bodyParser.urlencoded({ extended: true }));
 app.use(cookieParser());
 app.use(stylus.middleware(path.join(__dirname, 'public')));
 app.use(express.static(path.join(__dirname, 'public')));
@@ -54,6 +55,7 @@ app.use('/map', map);
 app.use('/users', users);
 app.use('/auth', auth);
 app.use('/posting', posting);
+app.use('/report', report);
 
 
 app.get('/session', function(req,res){
