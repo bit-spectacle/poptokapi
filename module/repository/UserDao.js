@@ -2,15 +2,23 @@ var db = require('./DB');
 
 var userDao = {
     UserGet: function (email, callback) {
-        var sql = "select userNo, nickname, Role, \
+        var sql = "select userNo,email, nickname, profileImage, role, \
         joindate, lastlogin from user \
         where email=?";
         var parameter = [email];
         db.Select(sql, parameter, callback);
     },
     Login: function (email, callback) {
+        var sql = "select userNo,email, nickname, profileImage, role, \
+        joindate, lastlogin from user \
+        where email = ? ";
+        var parameter = [email];
+        db.Select(sql, parameter, callback);
+    },
+    GetProfile(email, callback){
         var sql = "\
-        select * from user where email = ? ";
+        select profileImage, nickname, status \
+        where email = ? ";
         var parameter = [email];
         db.Select(sql, parameter, callback);
     },

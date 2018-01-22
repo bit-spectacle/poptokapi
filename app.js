@@ -1,3 +1,5 @@
+// import { MemoryStore } from './C:/Users/BIT/AppData/Local/Microsoft/TypeScript/2.6/node_modules/@types/express-session';
+
 var express = require('express');
 var path = require('path');
 var favicon = require('serve-favicon');
@@ -7,6 +9,8 @@ var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
 var stylus = require('stylus');
 var session = require('express-session');
+var MemoryStore = require('memorystore')(session)
+// var FileStore = require('session-file-store')(session);
 
 var index = require('./routes/index');
 var map = require('./routes/map');
@@ -26,13 +30,17 @@ app.use(session({
   secret: 'key',
   resave: false,
   saveUninitialized: true,
-  cooke: {
-    maxAge: 60 * 60 * 1000 //1hour
-  }
-}))
+  store: new MemoryStore({
+    checkPeriod:86400000
+  })
+
+  // store: new FileStore({
+  //   path: './sessions/'
+  // })
+}));
 
 
-// uncomment after placing your favicon in /public
+//uncomment after placing your favicon in /public
 //app.use(favicon(path.join(__dirname, 'public', 'favicon.ico')));
 app.use(logger('dev'));
 app.use(bodyParser.json());
@@ -74,10 +82,5 @@ app.use(function (err, req, res, next) {
   res.status(err.status || 500);
   res.render('error');
 });
-
-
-
-
-// app.get('/users/auth/:email/:password')
 
 module.exports = app;

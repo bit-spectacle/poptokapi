@@ -11,21 +11,43 @@ router.get('/list/:lastNo', function (req, res, next) {
         lastNo = 0;
     }
 
-    postingService.PostingListGet(lastNo, function (posting) {
-        for(var i=0; i<posting.length; i++) {
-            if(posting[i].image == '') {
-                posting[i].image = config.imageServerUrl + '/sky.jpg'; 
+    
+    if(req.session.user != null){
+        //console.log("userNo : " + user.userNo);
+        console.log("**********posting : user.userNo - " + req.session.user.userNo);
+        postingService.PostingListGet(lastNo, function (posting) {
+            for(var i=0; i<posting.length; i++) {
+                if(posting[i].image == '') {
+                    posting[i].image = config.imageServerUrl + '/sky.jpg'; 
+                }
+                else {
+                    posting[i].image = config.imageServerUrl + posting[i].image; 
+                }
             }
-            else {
-                posting[i].image = config.imageServerUrl + posting[i].image; 
-            }
-        }
+    
+            res.setHeader("Content-Type", "application/json");
+            res.send(JSON.stringify(posting));
+        });
+    }
+    else{
+        res.send('You have to Login First');
+    }
 
-        //console.log("user_uid: " + req.sesssion["user_uid"]);
+    // postingService.PostingListGet(lastNo, function (posting) {
+    //     for(var i=0; i<posting.length; i++) {
+    //         if(posting[i].image == '') {
+    //             posting[i].image = config.imageServerUrl + '/sky.jpg'; 
+    //         }
+    //         else {
+    //             posting[i].image = config.imageServerUrl + posting[i].image; 
+    //         }
+    //     }
 
-        res.setHeader("Content-Type", "application/json");
-        res.send(JSON.stringify(posting));
-    });
+    //     res.setHeader("Content-Type", "application/json");
+    //     res.send(JSON.stringify(posting));
+    // });
+
+    
   
 });
 
