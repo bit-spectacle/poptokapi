@@ -59,11 +59,11 @@ app.use('/report', report);
 
 
 app.get('/session', function(req,res){
-  if(req.session.user_uid)
+  if(req.session.user)
   {
     res.send('key : '+req.session.save);
     console.log('req.session.save : ' + req.session.save);
-    console.log('sessionId : '+ req.sessoinID);
+    console.log('session userNo : '+ req.session.user.userNo);
   }
 })
 

@@ -15,30 +15,25 @@ router.get('/login/:email?/:password?', function(req, res, next) {
                 var result = {
                     code: 'FAIL',
                     message: '로그인 실패',
-                    // sessionId : req.sessionID,
-                    data : null,
+                    data : null
                 };
                 if(password == user.password)
                 {
-                    req.session.user_uid = user.userNo;
+                    delete user.password;
                     result = {
                         code: 'SUCC',
                         message: '로그인 성공',
-                        // sessionId : req.sessionID,
                         data : user
                     };
                     userService.ChangeLastLogin(user.userNo,function(user){
                         console.log(user.lastlogin);
                     });
                    
-                    // store.set(user.user_uid, req.session, callback);
-                    console.log("user.user_uid : " + user.user_uid);
+                    console.log("user.userNo : " + user.userNo);
                     req.session.user = user;
                     req.session.save(function(){
-                       // res.send(JSON.stringify(status , 'SUCC'));
                       console.log(user.email + " key : "+ req.session.id);
                       console.log("req.session.user.userNo : " + req.session.user.userNo);
-                      console.log("req.sessionId : " + req.sessionID);
                     })
                 }
                 res.setHeader("Content-Type", "application/json");
@@ -49,7 +44,7 @@ router.get('/login/:email?/:password?', function(req, res, next) {
         var result = {
             code: 'FAIL',
             message: '로그인 실패',
-            user_uid : null
+            data : null
         };
         res.setHeader("Content-Type", "application/json");
         res.send(JSON.stringify(result));

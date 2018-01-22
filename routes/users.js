@@ -13,16 +13,40 @@ var app = express();
 
 /* GET users listing. */
 router.get('/userinfo/:email', function (req, res, next) {
-  var email = req.params.email;
-  if (email) {
-    userService.UserGet(email, function (user) {
-      console.log(user);
-      res.send(JSON.stringify(user));
-    });
+  
+
+  if (req.session !=null && req.session.user != null) {
+    var email = req.params.email;
+    if (email && email == req.session.user.email) {
+      userService.UserGet(email, function (user) {
+        console.log(user);
+        var result = {
+          code: 'SUCC',
+          message: '로그인유지중',
+          data: user
+        };
+        res.setHeader("Content-Type", "application/json");
+        res.send(JSON.stringify(result));
+      });
+    }
+    else {
+      var result = {
+        code: 'FAIL',
+        message: '실패',
+        data: null
+      };
+      res.setHeader("Content-Type", "application/json");
+      res.send(JSON.stringify(result));
+    }
   }
   else {
-    res.send(null);
-    console.log(email);
+    var result = {
+      code: 'FAIL',
+      message: '실패',
+      data: null
+    };
+    res.setHeader("Content-Type", "application/json");
+    res.send(JSON.stringify(result));
   }
 });
 

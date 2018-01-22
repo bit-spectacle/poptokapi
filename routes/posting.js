@@ -14,41 +14,42 @@ router.get('/list/:lastNo', function (req, res, next) {
     }
 
     
-    if(req.session.user != null){
-        //console.log("userNo : " + user.userNo);
-        console.log("**********posting : user.userNo - " + req.session.user.userNo);
-        postingService.PostingListGet(lastNo, function (posting) {
-            for(var i=0; i<posting.length; i++) {
-                if(posting[i].image == '') {
-                    posting[i].image = config.imageServerUrl + '/sky.jpg'; 
-                }
-                else {
-                    posting[i].image = config.imageServerUrl + posting[i].image; 
-                }
-                posting[i].postDate = new Date(posting[i].postDate).toFormat('YYYY-MM-DD HH24:MI:SS');
-            }
+    // if(req.session.user != null){
+    //     //console.log("userNo : " + user.userNo);
+    //     console.log("**********posting : user.userNo - " + req.session.user.userNo);
+    //     postingService.PostingListGet(lastNo, function (posting) {
+    //         for(var i=0; i<posting.length; i++) {
+    //             if(posting[i].image == '') {
+    //                 posting[i].image = config.imageServerUrl + '/sky.jpg'; 
+    //             }
+    //             else {
+    //                 posting[i].image = config.imageServerUrl + posting[i].image; 
+    //             }
+    //             posting[i].postDate = new Date(posting[i].postDate).toFormat('YYYY-MM-DD HH24:MI:SS');
+    //         }
     
-            res.setHeader("Content-Type", "application/json");
-            res.send(JSON.stringify(posting));
-        });
-    }
-    else{
-        res.send('You have to Login First');
-    }
+    //         res.setHeader("Content-Type", "application/json");
+    //         res.send(JSON.stringify(posting));
+    //     });
+    // }
+    // else{
+    //     res.send('You have to Login First');
+    // }
 
-    // postingService.PostingListGet(lastNo, function (posting) {
-    //     for(var i=0; i<posting.length; i++) {
-    //         if(posting[i].image == '') {
-    //             posting[i].image = config.imageServerUrl + '/sky.jpg'; 
-    //         }
-    //         else {
-    //             posting[i].image = config.imageServerUrl + posting[i].image; 
-    //         }
-    //     }
+    postingService.PostingListGet(lastNo, function (posting) {
+        for(var i=0; i<posting.length; i++) {
+            if(posting[i].image == '') {
+                posting[i].image = config.imageServerUrl + '/sky.jpg'; 
+            }
+            else {
+                posting[i].image = config.imageServerUrl + posting[i].image; 
+            }
+            posting[i].postDate = new Date(posting[i].postDate).toFormat('YYYY-MM-DD HH24:MI:SS');
+        }
 
-    //     res.setHeader("Content-Type", "application/json");
-    //     res.send(JSON.stringify(posting));
-    // });
+        res.setHeader("Content-Type", "application/json");
+        res.send(JSON.stringify(posting));
+    });
 
     
   

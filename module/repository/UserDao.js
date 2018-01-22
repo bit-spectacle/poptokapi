@@ -9,7 +9,7 @@ var userDao = {
         db.Select(sql, parameter, callback);
     },
     Login: function (email, callback) {
-        var sql = "select userNo,email, password, nickname, profileImage, role, \
+        var sql = "select userNo, email, password, nickname, profileImage, role, \
         joindate, lastlogin from user \
         where email = ? ";
         var parameter = [email];
