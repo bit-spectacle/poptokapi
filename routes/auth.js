@@ -10,31 +10,33 @@ router.get('/login/:email?/:password?', function(req, res, next) {
     
     if (email) {
         userService.Login(email, 
-            function (user) {
-                console.log(user);
+            function (rows) {
+                console.log(rows);
                 var result = {
                     code: 'FAIL',
                     message: '로그인 실패',
-                    data : null
+                    data: null
                 };
-                if(password == user.password)
-                {
-                    delete user.password;
-                    result = {
-                        code: 'SUCC',
-                        message: '로그인 성공',
-                        data : user
-                    };
-                    userService.ChangeLastLogin(user.userNo,function(user){
-                        console.log(user.lastlogin);
-                    });
-                   
-                    console.log("user.userNo : " + user.userNo);
-                    req.session.user = user;
-                    req.session.save(function(){
-                      console.log(user.email + " key : "+ req.session.id);
-                      console.log("req.session.user.userNo : " + req.session.user.userNo);
-                    })
+                if (rows != null) {
+                    var user = rows[0];
+                    if (password == user.password) {
+                        delete user.password;
+                        result = {
+                            code: 'SUCC',
+                            message: '로그인 성공',
+                            data: user
+                        };
+                        userService.ChangeLastLogin(user.userNo, function (user) {
+                            console.log(user.lastlogin);
+                        });
+
+                        console.log("user.userNo : " + user.userNo);
+                        req.session.user = user;
+                        req.session.save(function () {
+                            console.log(user.email + " key : " + req.session.id);
+                            console.log("req.session.user.userNo : " + req.session.user.userNo);
+                        })
+                    }
                 }
                 res.setHeader("Content-Type", "application/json");
                 res.send(JSON.stringify(result));
