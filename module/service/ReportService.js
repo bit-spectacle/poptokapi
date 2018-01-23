@@ -6,11 +6,7 @@ reportService = {
         console.log(locationLogList);
         reportDao.ReportLocation(userNo, locationLogList, function (err, rows) {
             if(err) { throw err;}
-            if(rows) {
-                if(rows.length > 0) {
-                    callback(rows);
-                }
-            }
+            callback();
         });
     }
 }
