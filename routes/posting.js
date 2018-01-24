@@ -39,7 +39,7 @@ router.get('/list/:lastNo', function (req, res, next) {
     postingService.PostingListGet(lastNo, function (posting) {
         for(var i=0; i<posting.length; i++) {
             if(posting[i].image == '') {
-                posting[i].image = config.imageServerUrl + '/sky.jpg'; 
+                posting[i].image = config.imageServerUrl + '/poptok_logo_back.png'; 
             }
             else {
                 posting[i].image = config.imageServerUrl + posting[i].image; 
@@ -95,7 +95,7 @@ router.get('/get/:postNo?', function (req, res, next) {
     postingService.PostingGet(postNo, function (posting) {
         
         if(posting.image == '') {
-            posting.image = config.imageServerUrl + '/sky.jpg'; 
+            posting.image = config.imageServerUrl + '/poptok_logo_back.png'; 
         }
         else {
             posting.image = config.imageServerUrl + posting.image; 
