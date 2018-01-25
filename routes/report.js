@@ -10,7 +10,8 @@ router.post('/location/:userNo', function (req, res, next) {
     reportService.ReportLocation(userNo, locationLogList, function() {
         var result = {
             code: "SUCC",
-            msg: "성공"
+            message: "성공",
+            data: 0
         };
         res.setHeader("Content-Type", "application/json");
         res.send(JSON.stringify(result));

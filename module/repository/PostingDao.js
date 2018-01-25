@@ -30,6 +30,11 @@ var postingDao = {
         var parameter = [postNo];
         db.Select(sql, parameter, callback);
     },
+    PostingWrite: function(userNo, locationNo, content, image, kakaoLink, tag, latitude, longitude, posttype, opentype, callback) {
+        var sql = "call P_PostAdd(?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+        var parameter = [userNo, locationNo, content, image, kakaoLink, tag, latitude, longitude, posttype, opentype];
+        db.Insert(sql, parameter, callback);
+    },
     CountLocationPosting: function(latitude, longitude, callback){
         var sql = "\
         select count(*) from posting where latitude=? and longitude=?";
