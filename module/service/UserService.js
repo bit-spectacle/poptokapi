@@ -12,7 +12,7 @@ UserService = {
     Login: function (email, callback) {
         userDao.Login(email, function (err, rows) {
             if (err) { throw err; }
-            if (rows) { callback(rows[0]); }
+            callback(rows);
         });
     },
     GetProfile: function(email, callback){
