@@ -38,27 +38,56 @@ UserService = {
     CheckEmail: function(email, callback){
         userDao.CheckEmail(email, function(err, rows){
             if(err) {throw err;}
-            if(rows) {callback(rows[0]);}
+            var userNo;
+            
+            if(rows) 
+            {
+                if(rows[0].userNo > 0)
+                    userNo = rows[0].userNo;
+                else
+                    userNo = 0;
+            }
+            console.log("UserService.checkEmail : " + userNo);    
+            callback(userNo);
         });
     },
     CheckNickName: function (nickname, callback) {
-        userDao.ChangeNickName(nickname, function (err, rows) {
+        userDao.CheckNickName(nickname, function (err, rows) 
+        {
+            var userNo;
             if (err) { throw err; }
-            if (rows) { callback(rows[0]); }
+            if(rows) 
+            {
+                if(rows[0].userNo > 0)
+                    userNo = rows[0].userNo;
+                else
+                    userNo = 0;
+            }
+            callback(userNo);
         });
     },
-    ChangeNickName: function (nickname, userno, callback) {
-        userDao.ChangeNickName(nickname, function (err, rows) {
+    ChangeNickName: function (nickname, userNo, callback) {
+        userDao.ChangeNickName(nickname, userNo, function (err, rows) {
             if (err) { throw err; }
-            if (rows) { callback(rows[0]); }
+           callback();
         });
     },
+    
     Join : function(email, password, nickname,  callback){
         userDao.Join(email, password, nickname,  function(err, rows){
             if(err) {throw err;}
-            if(rows){callback(rows[0]);}
+            if(rows != null && rows.length > 0)
+                callback(rows[0]);
+        });
+    },
+    ChangeStatus: function (status, userNo, callback) {
+        userDao.ChangeStatus(status, userNo, function (err, rows) {
+            if (err) { throw err; }
+           callback();
         });
     }
+
+
 }
 
 
