@@ -15,6 +15,9 @@ UserService = {
             if (rows) {
                 callback(rows[0]);
             }
+            else {
+                callback(null);
+            }
         });
     },
     GetProfile: function (email, callback) {

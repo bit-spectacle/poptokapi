@@ -17,7 +17,7 @@ router.get('/login/:email?/:password?', function (req, res, next) {
                     message: '로그인 실패',
                     data: null
                 };
-                if (password == user.password) {
+                if (user != null && password == user.password) {
                     delete user.password;
                     result = {
                         code: 'SUCC',
