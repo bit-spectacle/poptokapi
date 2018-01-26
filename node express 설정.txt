@@ -21,6 +21,15 @@ npm install date-utils
 ## body parser 설치
 npm install body-parser
 
+# 파일 업로드 모듈 설치
+npm install --save multer
+
+#디렉토리 생성 모듈 설치
+npm install --save mkdirp
+
+# ftp 업로드를 위해서..
+npm install easy-ftp
+
 
 # 서버 실행
 npm start

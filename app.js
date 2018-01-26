@@ -18,6 +18,7 @@ var users = require('./routes/users');
 var auth = require('./routes/auth');
 var posting = require('./routes/posting');
 var report = require('./routes/report');
+var upload = require('./routes/upload');
 
 var app = express();
 
@@ -56,6 +57,7 @@ app.use('/users', users);
 app.use('/auth', auth);
 app.use('/posting', posting);
 app.use('/report', report);
+app.use('/upload', upload);
 
 
 app.get('/session', function(req,res){

@@ -46,6 +46,15 @@ var postingDao = {
         delete * from posting where postNo = ?";
         var parameter = [postNo];
         db.Delete(sql,parameter, callback);
+    },
+    UpdateImage: function(postNo, imageUrl, callback) {
+        var sql = "\
+        update post \
+        set image = ? \
+        where postNo = ?";
+
+        var parameter = [imageUrl, postNo];
+        db.Update(sql, parameter, callback);
     }
 }
 
