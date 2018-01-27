@@ -4,37 +4,12 @@ var dateutils = require('date-utils');
 var postingService = require('../module/service/PostingService');
 var config = require('../config/config');
 
-
-/* GET users listing. */
 router.get('/list/:lastNo', function (req, res, next) {
 
     var lastNo = req.params.lastNo;
     if (!lastNo) {
         lastNo = 0;
     }
-
-
-    // if(req.session.user != null){
-    //     //console.log("userNo : " + user.userNo);
-    //     console.log("**********posting : user.userNo - " + req.session.user.userNo);
-    //     postingService.PostingListGet(lastNo, function (posting) {
-    //         for(var i=0; i<posting.length; i++) {
-    //             if(posting[i].image == '') {
-    //                 posting[i].image = config.imageServerUrl + '/sky.jpg'; 
-    //             }
-    //             else {
-    //                 posting[i].image = config.imageServerUrl + posting[i].image; 
-    //             }
-    //             posting[i].postDate = new Date(posting[i].postDate).toFormat('YYYY-MM-DD HH24:MI:SS');
-    //         }
-
-    //         res.setHeader("Content-Type", "application/json");
-    //         res.send(JSON.stringify(posting));
-    //     });
-    // }
-    // else{
-    //     res.send('You have to Login First');
-    // }
 
     postingService.PostingListGet(lastNo, function (posting) {
         for (var i = 0; i < posting.length; i++) {
@@ -50,8 +25,29 @@ router.get('/list/:lastNo', function (req, res, next) {
         res.setHeader("Content-Type", "application/json");
         res.send(JSON.stringify(posting));
     });
+});
 
+router.get('/list/:topLat/:topLong/:botLat/:botLong', function (req, res, next) {
 
+    var topLat = req.params.topLat;
+    var topLong = req.params.topLong;
+    var botLat = req.params.botLat;
+    var botLong = req.params.botLong;
+  
+    postingService.PostingListGet(topLat, topLong, botLat, botLong, function (posting) {
+        for (var i = 0; i < posting.length; i++) {
+            if (posting[i].image == '') {
+                posting[i].image = config.imageServerUrl + '/poptok_logo_back.png';
+            }
+            else {
+                posting[i].image = config.imageServerUrl + posting[i].image;
+            }
+            posting[i].postDate = new Date(posting[i].postDate).toFormat('YYYY-MM-DD HH24:MI:SS');
+        }
+
+        res.setHeader("Content-Type", "application/json");
+        res.send(JSON.stringify(posting));
+    });
 
 });
 

@@ -9,6 +9,14 @@ postingService = {
             }
         });
     },
+    PostingListGet: function (topLat, topLong, botLat, botLong, callback) {
+        postingDao.PostingListGet(topLat, topLong, botLat, botLong, function (err, rows) {
+            if (err) { throw err; }
+            if (rows) {
+                callback(rows);
+            }
+        });
+    },
     PostingMapGet: function (topLat, topLong, botLat, botLong, zoomLevel, userNo, callback) {
         postingDao.PostingMapGet(topLat, topLong, botLat, botLong, zoomLevel, userNo, function (err, rows) {
             if (err) { throw err; }

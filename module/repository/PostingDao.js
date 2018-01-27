@@ -14,6 +14,17 @@ var postingDao = {
         var parameter = [lastNo];
         db.Select(sql, parameter, callback);
     },
+    PostingListGet: function (topLat, topLong, botLat, botLong, callback) {
+        var sql = " \
+        select postNo, userNo, viewsCnt, likeCnt, commentCnt, content, image, kakaoLink, postDate, tag, latitude, longitude \
+        from post \
+        WHERE latitude  between ? and ? \
+            and longitude between ? and ? \
+        ORDER BY postNo DESC \
+        ";
+        var parameter = [botLat, topLat, botLong, topLong];
+        db.Select(sql, parameter, callback);
+    },
     PostingMapGet: function (topLat, topLong, botLat, botLong, zoomLevel, userNo, callback) {
         var sql = "call P_PostMap(?, ?, ?, ?, ?, ?)";
         var parameter = [topLat, topLong, botLat, botLong, zoomLevel, userNo];

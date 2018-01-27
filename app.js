@@ -17,6 +17,7 @@ var map = require('./routes/map');
 var users = require('./routes/users');
 var auth = require('./routes/auth');
 var posting = require('./routes/posting');
+var location = require('./routes/location');
 var report = require('./routes/report');
 var upload = require('./routes/upload');
 
@@ -56,6 +57,7 @@ app.use('/map', map);
 app.use('/users', users);
 app.use('/auth', auth);
 app.use('/posting', posting);
+app.use('/location', location);
 app.use('/report', report);
 app.use('/upload', upload);
 
