@@ -1,7 +1,7 @@
 var db = require('./DB');
 
 var postingDao = {
-    PostingListGet: function (lastNo, callback) {
+    PostingListPaging: function (lastNo, callback) {
         var sql = " \
         select rownum, postNo, userNo, viewsCnt, likeCnt, commentCnt, content, image, kakaoLink, postDate, tag, latitude, longitude \
         from (\
@@ -12,6 +12,17 @@ var postingDao = {
         where rownum > ? \
         limit 100";
         var parameter = [lastNo];
+        db.Select(sql, parameter, callback);
+    },
+    PostingListGet: function (topLat, topLong, botLat, botLong, callback) {
+        var sql = " \
+        select postNo, userNo, viewsCnt, likeCnt, commentCnt, content, image, kakaoLink, postDate, tag, latitude, longitude \
+        from post \
+        WHERE latitude  between ? and ? \
+            and longitude between ? and ? \
+        ORDER BY postNo DESC \
+        ";
+        var parameter = [botLat, topLat, botLong, topLong];
         db.Select(sql, parameter, callback);
     },
     PostingMapGet: function (topLat, topLong, botLat, botLong, zoomLevel, userNo, callback) {
@@ -46,6 +57,15 @@ var postingDao = {
         delete * from posting where postNo = ?";
         var parameter = [postNo];
         db.Delete(sql,parameter, callback);
+    },
+    UpdateImage: function(postNo, imageUrl, callback) {
+        var sql = "\
+        update post \
+        set image = ? \
+        where postNo = ?";
+
+        var parameter = [imageUrl, postNo];
+        db.Update(sql, parameter, callback);
     }
 }
 

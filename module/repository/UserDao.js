@@ -59,6 +59,15 @@ var userDao = {
         update user set status = ? where userNo=? ";
         var parameter = [status, userNo];
         db.Update(sql, parameter, callback);
+    },
+    UpdateImage: function(userNo, imageUrl, callback) {
+        var sql = "\
+        update user \
+        set profileImage = ? \
+        where userNo = ?";
+
+        var parameter = [imageUrl, userNo];
+        db.Update(sql, parameter, callback);
     }
 }
 
