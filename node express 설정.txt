@@ -31,9 +31,10 @@ npm install --save mkdirp
 npm install easy-ftp
 
 # for logging
-npm install winston
 npm install fs
 npm install mkdirp
+npm install log4js
+npm install string-format
 
 
 # 서버 실행
@@ -42,3 +43,13 @@ npm start
 # git 리파지터리 연결
 D:\Workplace\Poptok\PoptokApi>
 git remote add origin https://github.com/bit-spectacle/poptokapi.git
+
+
+########
+# centos 서버에서 노드 설치
+curl --silent --location https://rpm.nodesource.com/setup_8.x | bash -
+yum install nodejs
+node -v
+
+mkdir /home/datamaster/workspace/poptokapi
+cd /home/datamaster/workspace/poptokapi

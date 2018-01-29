@@ -5,5 +5,5 @@ module.exports = {
     password : 'bigdata2017',
     port     : 3306,
     database : 'poptok',
-    debug: true
+    debug: false
   };

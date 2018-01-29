@@ -1,31 +1,9 @@
 var express = require('express');
 var router = express.Router();
 var dateutils = require('date-utils');
-var winston = require('winston');
-var mkdirp = require('mkdirp');
-var fs = require('fs');
-var path = require('path');
-var postingService = require('../module/service/PostingService');
 var config = require('../config/config');
-
-mkdirp(config.logDir, function(err) {
-    if (err) console.error(err);
-    else console.log('dir created');
-});
-
-var log_filename = path.join(config.logDir, 'poptok_api.log');
-
-var logger = new (winston.Logger)({
-    transports: [
-        new (winston.transports.File)({
-            filename: log_filename
-            // ,
-            // maxsize: 1000 * 1024,
-            // datePattern: '.yyyy-MM-dd.log',
-            // timestamp: function() {return moment().format("YYYY-MM-DD HH:mm:ss.SSS"); }
-        })
-    ]
-});
+var postingService = require('../module/service/PostingService');
+var Log = require('../module/service/LogService');
 
 router.get('/list/:lastNo', function (req, res, next) {
 
@@ -33,8 +11,6 @@ router.get('/list/:lastNo', function (req, res, next) {
     if (!lastNo) {
         lastNo = 0;
     }
-
-    logger.log('debug','/posting/list/');
 
     postingService.PostingListPaging(lastNo, function (posting) {
         for (var i = 0; i < posting.length; i++) {
@@ -141,6 +117,10 @@ router.post('/write/', function (req, res, next) {
         };
         if (postNo != null && postNo.length > 0) postNo = postNo[0].postNo;
         if (postNo > 0) {
+            // 해시 태그가 있는 경우 로그에 남겨서 flum이 가져갈수 있도록 한다.
+            if(writeParam.tag != null && writeParam.tag.length > 0) {
+                Log.DebugFormat('{0}', writeParam.tag);
+            }
             result = {
                 code: 'SUCC',
                 message: '성공',
