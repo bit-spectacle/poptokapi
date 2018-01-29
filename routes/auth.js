@@ -115,7 +115,7 @@ router.get('/checkNickName/:nickname', function (req, res, next) {
         code: 'FAIL',
         message: '실패',
         data: 1
-    }
+    };
     userService.CheckNickName(nickname, function (userNo) {
         console.log(nickname);
         if (userNo > 0) {
