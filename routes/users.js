@@ -50,4 +50,17 @@ router.get('/userinfo/:email', function (req, res, next) {
   }
 });
 
+router.get('/friend/:userNo', function (req, res, next) {
+  var userNo = req.params.userNo;
+  var result = {
+    code : 'FAIL',
+    message : '실패',
+    data : null
+  };
+
+  
+
+
+});
+
 module.exports = router;
