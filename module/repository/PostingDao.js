@@ -1,7 +1,7 @@
 var db = require('./DB');
 
 var postingDao = {
-    PostingListGet: function (lastNo, callback) {
+    PostingListPaging: function (lastNo, callback) {
         var sql = " \
         select rownum, postNo, userNo, viewsCnt, likeCnt, commentCnt, content, image, kakaoLink, postDate, tag, latitude, longitude \
         from (\

@@ -5,5 +5,6 @@ module.exports = {
       port:21,
       user: 'poptokimage',
       password: 'bigdata2017'
-    }
+    },
+    logDir : '/home/datamaster/workspace/log/poptokapi'
   };

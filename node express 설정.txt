@@ -30,6 +30,11 @@ npm install --save mkdirp
 # ftp 업로드를 위해서..
 npm install easy-ftp
 
+# for logging
+npm install winston
+npm install fs
+npm install mkdirp
+
 
 # 서버 실행
 npm start

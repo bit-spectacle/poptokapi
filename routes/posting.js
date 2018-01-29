@@ -1,8 +1,31 @@
 var express = require('express');
 var router = express.Router();
 var dateutils = require('date-utils');
+var winston = require('winston');
+var mkdirp = require('mkdirp');
+var fs = require('fs');
+var path = require('path');
 var postingService = require('../module/service/PostingService');
 var config = require('../config/config');
+
+mkdirp(config.logDir, function(err) {
+    if (err) console.error(err);
+    else console.log('dir created');
+});
+
+var log_filename = path.join(config.logDir, 'poptok_api.log');
+
+var logger = new (winston.Logger)({
+    transports: [
+        new (winston.transports.File)({
+            filename: log_filename
+            // ,
+            // maxsize: 1000 * 1024,
+            // datePattern: '.yyyy-MM-dd.log',
+            // timestamp: function() {return moment().format("YYYY-MM-DD HH:mm:ss.SSS"); }
+        })
+    ]
+});
 
 router.get('/list/:lastNo', function (req, res, next) {
 
@@ -11,7 +34,9 @@ router.get('/list/:lastNo', function (req, res, next) {
         lastNo = 0;
     }
 
-    postingService.PostingListGet(lastNo, function (posting) {
+    logger.log('debug','/posting/list/');
+
+    postingService.PostingListPaging(lastNo, function (posting) {
         for (var i = 0; i < posting.length; i++) {
             if (posting[i].image == '') {
                 posting[i].image = config.imageServerUrl + '/poptok_logo_back.png';
@@ -33,7 +58,7 @@ router.get('/list/:topLat/:topLong/:botLat/:botLong', function (req, res, next) 
     var topLong = req.params.topLong;
     var botLat = req.params.botLat;
     var botLong = req.params.botLong;
-  
+
     postingService.PostingListGet(topLat, topLong, botLat, botLong, function (posting) {
         for (var i = 0; i < posting.length; i++) {
             if (posting[i].image == '') {
@@ -108,14 +133,14 @@ router.get('/get/:postNo?', function (req, res, next) {
 router.post('/write/', function (req, res, next) {
     var writeParam = req.body;
 
-    postingService.PostingWrite(writeParam, function(postNo) {
+    postingService.PostingWrite(writeParam, function (postNo) {
         var result = {
             code: 'FAIL',
             message: '실패',
             data: 0
         };
-        if(postNo != null && postNo.length > 0) postNo = postNo[0].postNo;
-        if(postNo > 0) {
+        if (postNo != null && postNo.length > 0) postNo = postNo[0].postNo;
+        if (postNo > 0) {
             result = {
                 code: 'SUCC',
                 message: '성공',
