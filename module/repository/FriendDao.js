@@ -3,12 +3,20 @@ var db = require('./DB');
 var friendDao = {
     GetFriendProfile : function(userNo, callback){
         var sql = "\
-        select nickname, status, profileImage \
+        select userNo, nickname, status, profileImage \
         from user where userNo in ( \
         select userNo from friend where userNo2 = ? and userStatus = 2)\
         or userNo in \
         (select userNo2 from friend where userNo = ? and userStatus = 2)";
         var parameter = [userNo,userNo];
+        db.Select(sql, parameter, callback);
+    },
+    AddMeFriend : function(userNo, callback){
+        var sql = "\
+        select userNo, nickname, status, profileImage\
+        from user where userNo in\
+        (select userNo from friend where userNo2 = ? and userStatus = 1)";
+        var parameter = [userNo];
         db.Select(sql, parameter, callback);
     },
     GetFriendReq : function(userNo, callback){

@@ -9,6 +9,15 @@ FriendService = {
             callback(rows);
         });
     },
+    AddMeFriend: function(userNo, callback){
+        friendDao.AddMeFriend(userNo, function(err, rows){
+            if(err){
+                throw err;
+            }
+            callback(rows);
+        })
+
+    },
     GetFriendReq : function(userNo, callback){
         friendDao.GetFriendReq(userNo, function(err, rows){
             if(err){

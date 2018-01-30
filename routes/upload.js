@@ -2,6 +2,7 @@ var express = require('express');
 var router = express.Router();
 var multer = require('multer');
 var mkdirp = require('mkdirp');
+var config = require('../config/config');
 var ftpService = require('../module/service/FtpService');
 var uploadService = require('../module/service/UploadService');
 
@@ -76,7 +77,7 @@ router.post('/:destination/:pk', function (req, res) {
             result = {
                 code: 'SUCC',
                 message: '성공',
-                data: dbFullPath
+                data: config.imageServerUrl + dbFullPath
             }
         }
         res.setHeader("Content-Type", "application/json");

@@ -87,9 +87,13 @@ UserService = {
             if (err) { throw err; }
             callback();
         });
+    },
+    UpdateImage : function(userNo, imageUrl , callback){
+        userDao.UpdateImage(userNo, imageUrl, function(err, rows){
+            if(err){throw err;}
+            callback();
+        });
     }
-
-
 }
 
 

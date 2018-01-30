@@ -93,10 +93,33 @@ router.get('/AcceptFriendStatus/:userNo/:userNo2', function (req, res, next) {
             code: 'SUCC',
             message: '성공',
             data: 1
+        };
+        res.setHeader("Content-Type", "application/json");
+        res.send(JSON.stringify(result));
+    });
+});
+
+router.get('/addmefriend/:userNo', function(req, res, next){
+    var userNo = req.params.userNo;
+
+    var result = {
+        code : 'FAIL',
+        message : '실패',
+        data : 0 
+    };
+
+    friendService.AddMeFriend(userNo, function(rows){
+        console.log(userNo);
+
+        result = {
+            code : 'SUCC',
+            message : '성공',
+            data : rows
         }
         res.setHeader("Content-Type", "application/json");
         res.send(JSON.stringify(result));
     });
+
 });
 
 router.get('/CheckFriend/:userNo/:userNo2', function (req, res, next) {

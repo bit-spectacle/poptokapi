@@ -185,5 +185,32 @@ router.get('/changeStatus/:status/:userNo',function(req, res,next){
     });
 });
 
+router.get('/updateImage/:userNo/:imageUrl',function(req, res,next){
+
+    var userNo = req.params.userNo;
+    var imageUrl = req.params.imageUrl;
+    var result = {
+        code: 'FAIL',
+        message: '실패',
+        data: null
+    }
+
+    console.log("imageUrl");
+    console.log(imageUrl);
+    console.log(userNo);
+
+    userService.UpdateImage(userNo, imageUrl, function(){
+        result = {
+            code:'SUCC',
+            message : '성공',
+            data : null
+        }
+
+        res.setHeader("Content-Type", "application/json");
+        res.send(JSON.stringify(result));
+
+    });
+});
+
 
 module.exports = router;
