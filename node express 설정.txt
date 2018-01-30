@@ -32,9 +32,11 @@ npm install easy-ftp
 
 # for logging
 npm install fs
-npm install mkdirp
 npm install log4js
 npm install string-format
+
+# 레디스
+npm install redis
 
 
 # 서버 실행
