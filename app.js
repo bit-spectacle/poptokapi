@@ -21,6 +21,7 @@ var location = require('./routes/location');
 var report = require('./routes/report');
 var friend = require('./routes/friend')
 var upload = require('./routes/upload');
+var hash = require('./routes/hash');
 
 var app = express();
 
@@ -62,6 +63,7 @@ app.use('/location', location);
 app.use('/report', report);
 app.use('/friend', friend);
 app.use('/upload', upload);
+app.use('/hash', hash);
 
 
 app.get('/session', function(req,res){
