@@ -13,7 +13,7 @@ var friendDao = {
     },
     AddMeFriend : function(userNo, callback){
         var sql = "\
-        select friendNo, userNo, nickname, status, profileImage\
+        select userNo, nickname, status, profileImage\
         from user where userNo in\
         (select userNo from friend where userNo2 = ? and userStatus = 1)";
         var parameter = [userNo];
@@ -21,16 +21,16 @@ var friendDao = {
     },
     GetFriendReq : function(userNo, callback){
         var sql = "\
-        select friendNo, nickname, status, profileImage\
+        select nickname, status, profileImage\
         from user where userNo2 = ? and userStatus = 1";
         var parameter = [userNo];
         db.Select(sql, parameter, callback);
     },
     RejectFriendStatus : function(userNo, userNo2, callback){
         var sql = "\
-        Update friend set userStatus = 3 where userNo = ? and\
-        userNo2 = ? ";
-        var parameter = [userNo, userNo2];
+        Update friend set userStatus = 3 where (userNo = ? and\
+        userNo2 = ?) or (userNo = ? and userNo2=?) ";
+        var parameter = [userNo, userNo2, userNo2, userNo];
         db.Update(sql, parameter, callback);
     },
     AcceptFriendStatus: function(userNo, userNo2, callback){

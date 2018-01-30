@@ -20,7 +20,10 @@ router.get('/findFriend/:userNo', function (req, res, next) {
         message: '친구 없음',
         data: 0
     };
+    // friendService.GetFriendProfile(userNo, function (rows) {
     friendService.GetFriendProfile(userNo, function (rows) {
+        
+        console.log(rows);
 
         if (rows) {
             result = {
@@ -99,22 +102,23 @@ router.get('/AcceptFriendStatus/:userNo/:userNo2', function (req, res, next) {
     });
 });
 
-router.get('/addmefriend/:userNo', function(req, res, next){
+router.get('/addmefriend/:userNo', function (req, res, next) {
     var userNo = req.params.userNo;
 
     var result = {
-        code : 'FAIL1',
-        message : '실패',
-        data : 0 
+        code: 'FAIL1',
+        message: '실패',
+        data: 0
     };
 
-    friendService.AddMeFriend(userNo, function(rows){
-        console.log(userNo);
-
-        result = {
-            code : 'SUCC',
-            message : '성공',
-            data : rows
+    friendService.AddMeFriend(userNo, function (rows) {
+        console.log(rows);
+        if (rows) {
+            result = {
+                code: 'SUCC1',
+                message: '성공',
+                data: rows
+            }
         }
         res.setHeader("Content-Type", "application/json");
         res.send(JSON.stringify(result));
