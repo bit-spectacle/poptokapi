@@ -13,7 +13,7 @@ var friendDao = {
     },
     AddMeFriend : function(userNo, callback){
         var sql = "\
-        select userNo, nickname, status, profileImage\
+        select friendNo, userNo, nickname, status, profileImage\
         from user where userNo in\
         (select userNo from friend where userNo2 = ? and userStatus = 1)";
         var parameter = [userNo];
@@ -21,7 +21,7 @@ var friendDao = {
     },
     GetFriendReq : function(userNo, callback){
         var sql = "\
-        select nickname, status, profileImage\
+        select friendNo, nickname, status, profileImage\
         from user where userNo2 = ? and userStatus = 1";
         var parameter = [userNo];
         db.Select(sql, parameter, callback);

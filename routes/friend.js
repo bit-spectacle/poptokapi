@@ -103,7 +103,7 @@ router.get('/addmefriend/:userNo', function(req, res, next){
     var userNo = req.params.userNo;
 
     var result = {
-        code : 'FAIL',
+        code : 'FAIL1',
         message : '실패',
         data : 0 
     };
