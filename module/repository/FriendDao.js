@@ -3,19 +3,25 @@ var db = require('./DB');
 var friendDao = {
     GetFriendProfile : function(userNo, callback){
         var sql = "\
-        select userNo, nickname, status, profileImage \
-        from user where userNo in ( \
-        select userNo from friend where userNo2 = ? and userStatus = 2)\
-        or userNo in \
-        (select userNo2 from friend where userNo = ? and userStatus = 2)";
+        select u.userNo, nickname, status, profileImage, userStatus\
+        from User u\
+        inner join(\
+        select userNo, userStatus from friend where userNo2 = ?\
+        union \
+	    select userNo2 as userNo, userStatus from friend where userNo = ?) t\
+        on u.userNo = t.UserNo where userStatus = 2";
         var parameter = [userNo,userNo];
         db.Select(sql, parameter, callback);
     },
     AddMeFriend : function(userNo, callback){
         var sql = "\
-        select userNo, nickname, status, profileImage\
-        from user where userNo in\
-        (select userNo from friend where userNo2 = ? and userStatus = 1)";
+        select u.userNo, nickname, status, profileImage, userStatus\
+        from User u\
+        inner join(\
+        select userNo, userStatus from friend where userNo2 = ?\
+        union \
+	    select userNo2 as userNo, userStatus from friend where userNo = ?) t\
+        on u.userNo = t.UserNo where userStatus = 1";
         var parameter = [userNo];
         db.Select(sql, parameter, callback);
     },

@@ -12,13 +12,23 @@ var bodyParser = require('body-parser');
 var MySQLStore = require('express-mysql-session')(session);
 var app = express();
 
-router.get('/findFriend/:userNo', function (req, res, next) {
+// router.get('/GetFriendProfile/:user', function(req, res, next){
+//     var userNo = req.params.userNo;
+//     var result = {
+//         code: 'FAIL',
+//         message: '친구 없음',
+//         data: []
+//     };
+
+// });
+
+router.get('/GetFriendProfile/:userNo', function (req, res, next) {
 
     var userNo = req.params.userNo;
     var result = {
         code: 'FAIL',
         message: '친구 없음',
-        data: 0
+        data: []
     };
     // friendService.GetFriendProfile(userNo, function (rows) {
     friendService.GetFriendProfile(userNo, function (rows) {
@@ -108,7 +118,7 @@ router.get('/addmefriend/:userNo', function (req, res, next) {
     var result = {
         code: 'FAIL1',
         message: '실패',
-        data: 0
+        data: []
     };
 
     friendService.AddMeFriend(userNo, function (rows) {
