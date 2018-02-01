@@ -50,7 +50,35 @@ router.get('/login/:email?/:password?', function (req, res, next) {
     }
 });
 
+router.get('/logout/:userno', function(req, res, next){
+
+    var userNo = req.params.userno;
+    var result = {
+        code : 'SUCC',
+        message : '로그아웃 성공',
+        data : 0
+    };
+   
+    // if(userNo = req.session.user.userno)
+    // {
+    //     result = {
+    //         code : 'SUCC',
+    //         message : '로그아웃 성공',
+    //         data : null
+    //     };
+        req.session.destroy();
+        res.clearCookie('sid');
+    // }
+    
+    // if(req.session.id ==  )
+    res.setHeader("Content-Type", "application/json");
+    res.send(JSON.stringify(result));
+
+
+});
+
 exports.logout = function (req, res) {
+    
     req.session.destroy();
     res.clearCookie('sid');
 };
