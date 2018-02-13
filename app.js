@@ -22,6 +22,7 @@ var report = require('./routes/report');
 var friend = require('./routes/friend')
 var upload = require('./routes/upload');
 var hash = require('./routes/hash');
+var recommend = require('./routes/recommend');
 
 var app = express();
 
@@ -64,6 +65,7 @@ app.use('/report', report);
 app.use('/friend', friend);
 app.use('/upload', upload);
 app.use('/hash', hash);
+app.use('/recommend', recommend);
 
 
 app.get('/session', function(req,res){
